@@ -28,6 +28,7 @@
       render() {
         return (
           <div>
+            <input type="text"/>
             <input ref={this.myRef} type="text" placeholder='点击按钮提示数据' />
             <button onClick={this.showData}>点我提示左侧数据</button>
             <input ref={(cur) => this.input2 = cur} type="text" onBlur={this.showData2} placeholder='失去焦点提示数据'/>
