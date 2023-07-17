@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello_react</title>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Demo extends React.Component {
+      state = {
+        isHot: true
+      }
+      render() {
+        const {isHot} = this.state
+        return (
+          <div>
+            <h2>今天天气很{isHot ? '炎热' : '凉爽'}</h2>
+            <input ref={(cur) => this.input1 = cur} type="text" placeholder='点击按钮提示数据' />
+            <button onClick={this.showData}>点我提示左侧数据</button>
+            <button onClick={this.changeWeather}>点我切换天气</button>
+          </div>
+        )
+      }
+      changeWeather = () => {
+        this.setState({
+          isHot: !this.state.isHot
+        })
+      }
+    }
+    ReactDOM.render(<Demo />, document.getElementById('test'))
+  </script>
+</body>
+
+</html>
