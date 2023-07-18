@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello_react</title>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Login extends React.Component {
+      render() {
+        return (
+          <form onSubmit={this.login}>
+            用户名:<input ref={c => this.username = c} type="text" name='username'/>
+            密码:<input ref={c => this.password = c} type="password" name='password'/>
+            <button>登录</button>
+          </form>
+        )
+      }
+      login = (event) => {
+        event.preventDefault()
+        const {username, password} = this
+        alert(`login ${username.value} ${password.value}`)
+      }
+    }
+    ReactDOM.render(<Login/>, document.getElementById('test'))
+  </script>
+</body>
+
+</html>
