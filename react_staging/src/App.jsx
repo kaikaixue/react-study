@@ -1,66 +1,24 @@
-import React, { Component } from "react";
-import './App.css'
-import Header from "./components/Header";
-import List from "./components/List";
-import Footer from "./components/Footer";
+import React, {Component} from "react";
+import axios from "axios";
 export default class App extends Component {
-    state = {
-        todos: [
-            {id: '001', name: '吃饭', done: true},
-            {id: '002', name: '睡觉', done: true},
-            {id: '003', name: '写代码', done: false},
-        ],
-    }
 
-    addTodo = (todoObj) => {
-        const {todos} = this.state
-        const newTodos = [todoObj, ...todos]
-        this.setState({todos: newTodos})
-    }
+  getStudentData = () => {
+    axios.get('http://localhost:3000/api1/students').then(res => {
+      console.log(res.data)
+    }, error => {console.log(error, '失败了')})
+  }
+  getCarsData = () => {
+    axios.get('http://localhost:3000/api2/cars').then(res => {
+      console.log(res.data)
+    }, error => {console.log(error, '失败了')})
+  }
 
-
-    changeTodo = (id, done) => {
-        console.log(id, done)
-        const {todos} = this.state
-        const newTodos = todos.map(todo => {
-            if (todo.id === id) {
-                return {...todo, done: done}
-            } else {
-                return todo
-            }
-        })
-        this.setState({todos: newTodos})
-    }
-
-    deleteTodo = (id) => {
-        const {todos} = this.state
-        const newTodos = todos.filter(todo => todo.id !== id)
-        this.setState({todos: newTodos})
-    }
-
-    handleCheckAll = (done) => {
-        console.log('done', done)
-        const {todos} = this.state
-        const newTodos = todos.map(todo => ({
-            ...todo, done: done
-        }))
-        this.setState({todos: newTodos})
-    }
-
-    clearDone = () => {
-        const {todos} = this.state
-        const newTodos = todos.filter(todo =>!todo.done)
-        this.setState({todos: newTodos})
-    }
-
-    render() {
-        const {todos} = this.state
-        return( <div className="todo-container">
-            <div className="todo-wrap">
-                <Header addTodo={this.addTodo}/>
-                <List todos={todos} changeTodo={this.changeTodo} deleteTodo={this.deleteTodo}/>
-                <Footer todos={todos} handleCheckAll={this.handleCheckAll} clearDone={this.clearDone}/>
-            </div>
-        </div>);
-    }
+  render() {
+    return (
+      <div>
+        <button onClick={this.getStudentData}>点击获取学生数据</button>
+        <button onClick={this.getCarsData}>点击获取汽车数据</button>
+      </div>
+    )
+  }
 }
